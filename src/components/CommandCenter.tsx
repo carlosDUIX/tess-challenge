@@ -205,8 +205,8 @@ export const CommandCenter = () => {
       {/* Sidebar */}
       <aside className="w-12 md:w-56 border-r border-tess-border flex flex-col bg-white z-20">
         <div className="p-4 md:p-6 flex justify-center md:justify-start">
-          <img src="/tess-light.png" alt="Tess Logo" className="h-8 w-auto hidden md:block" referrerPolicy="no-referrer" />
-          <img src="/tess-light.png" alt="Tess Logo" className="h-6 w-auto md:hidden" referrerPolicy="no-referrer" />
+          <img src="https://tess.im/assets/img/logo/Tess/tess-light.svg" alt="Tess Logo" className="h-8 w-auto hidden md:block" referrerPolicy="no-referrer" />
+          <img src="https://tess.im/assets/img/logo/Tess/tess-light.svg" alt="Tess Logo" className="h-6 w-auto md:hidden" referrerPolicy="no-referrer" />
         </div>
 
         <nav className="flex-1 px-3 py-2 space-y-1">
