@@ -10,7 +10,9 @@ import {
   Command,
   Send,
   Activity,
-  CheckCircle2
+  CheckCircle2,
+  Menu,
+  X
 } from 'lucide-react';
 import { Agent, LogEntry, AgentStatus } from '../types';
 import { AgentCard } from './AgentCard';
@@ -100,6 +102,7 @@ export const CommandCenter = () => {
   const [selectedAgentId, setSelectedAgentId] = useState<string>(INITIAL_AGENTS[0].id);
   const [prompt, setPrompt] = useState('');
   const [searchQuery, setSearchQuery] = useState('');
+  const [isSidebarOpen, setIsSidebarOpen] = useState(false);
 
   const filteredAgents = agents.filter(agent => 
     agent.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
@@ -201,12 +204,33 @@ export const CommandCenter = () => {
   const totalAgentsCount = agents.length;
 
   return (
-    <div className="flex h-screen overflow-hidden bg-tess-bg text-tess-text">
+    <div className="flex h-screen overflow-hidden bg-tess-bg text-tess-text relative">
+      {/* Mobile Sidebar Overlay */}
+      <AnimatePresence>
+        {isSidebarOpen && (
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            onClick={() => setIsSidebarOpen(false)}
+            className="fixed inset-0 bg-black/40 backdrop-blur-sm z-30 lg:hidden"
+          />
+        )}
+      </AnimatePresence>
+
       {/* Sidebar */}
-      <aside className="w-12 md:w-56 border-r border-tess-border flex flex-col bg-white z-20">
-        <div className="p-4 md:p-6 flex justify-center md:justify-start">
-          <img src="https://tess.im/assets/img/logo/Tess/tess-light.svg" alt="Tess Logo" className="h-8 w-auto hidden md:block" referrerPolicy="no-referrer" />
-          <img src="https://tess.im/assets/img/logo/Tess/tess-light.svg" alt="Tess Logo" className="h-6 w-auto md:hidden" referrerPolicy="no-referrer" />
+      <aside className={`
+        fixed inset-y-0 left-0 z-40 w-64 bg-white border-r border-tess-border transform transition-transform duration-300 ease-in-out lg:relative lg:translate-x-0 lg:w-56 flex flex-col
+        ${isSidebarOpen ? 'translate-x-0' : '-translate-x-full'}
+      `}>
+        <div className="p-6 flex items-center justify-between">
+          <img src="https://tess.im/assets/img/logo/Tess/tess-light.svg" alt="Tess Logo" className="h-8 w-auto" referrerPolicy="no-referrer" />
+          <button 
+            onClick={() => setIsSidebarOpen(false)}
+            className="p-2 text-gray-400 hover:text-gray-600 lg:hidden"
+          >
+            <X className="w-5 h-5" />
+          </button>
         </div>
 
         <nav className="flex-1 px-3 py-2 space-y-1">
@@ -219,6 +243,9 @@ export const CommandCenter = () => {
           ].map((item) => (
             <button
               key={item.label}
+              onClick={() => {
+                if (window.innerWidth < 1024) setIsSidebarOpen(false);
+              }}
               className={`w-full flex items-center gap-3 px-3 py-2.5 rounded-xl transition-all duration-200 ${
                 item.active 
                   ? 'bg-gray-200 text-gray-800' 
@@ -226,7 +253,7 @@ export const CommandCenter = () => {
               }`}
             >
               <item.icon className="w-5 h-5" strokeWidth={1.5} />
-              <span className="font-medium text-sm hidden md:block">{item.label}</span>
+              <span className="font-medium text-sm">{item.label}</span>
             </button>
           ))}
         </nav>
@@ -235,9 +262,15 @@ export const CommandCenter = () => {
       {/* Main Content */}
       <main className="flex-1 flex flex-col min-w-0 bg-tess-bg h-full">
         {/* Header */}
-        <header className="h-16 border-b border-tess-border flex items-center justify-between px-6 bg-white/80 backdrop-blur-md shrink-0">
-          <div className="flex items-center gap-6">
-            <h1 className="text-lg font-bold tracking-tight text-gray-900">Command Center</h1>
+        <header className="h-16 border-b border-tess-border flex items-center justify-between px-4 md:px-6 bg-white/80 backdrop-blur-md shrink-0">
+          <div className="flex items-center gap-3 md:gap-6">
+            <button 
+              onClick={() => setIsSidebarOpen(true)}
+              className="p-2 -ml-2 text-gray-500 hover:text-gray-700 lg:hidden"
+            >
+              <Menu className="w-6 h-6" strokeWidth={1.5} />
+            </button>
+            <h1 className="text-base md:text-lg font-bold tracking-tight text-gray-900">Command Center</h1>
           </div>
 
           <div className="flex items-center gap-4">
