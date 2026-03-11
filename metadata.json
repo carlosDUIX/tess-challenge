@@ -1,0 +1,5 @@
+{
+  "name": "TESS Command Center",
+  "description": "A real-time dashboard for monitoring and interacting with multiple AI agents.",
+  "requestFramePermissions": []
+}
