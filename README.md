@@ -6,14 +6,14 @@ Google AI Studio (Gemini 3.1 Pro): Foi o "cérebro" do projeto. Usei para arquit
 
 ChatGPT/Claude/Grok: Usei para a validação de ideias e análise de UI/UX, além de sugestões de melhoria/validação de vieses cognitivos e respostas visuais.
 
-2. Decisão de UX e o "Porquê"
+**2. Decisão de UX e o "Porquê"**
 Decisão: Implementação de Context-Aware Logging (Troca de Contexto de Log).
 
 Por quê? Em plataformas de múltiplos agentes, o usuário se sente perdido quando vê uma "chuva" de logs de 5 IAs diferentes ao mesmo tempo. Minha decisão foi criar um log central que se reconfigura instantaneamente ao selecionar um agente.
 
 Resultado: Isso reduz a carga cognitiva. O usuário sabe exatamente o que o Code Architect está fazendo sem a interferência do que o Research Analyst está processando. É uma interface que "limpa o ruído" para o tomador de decisão.
 
-3. O que faria diferente com mais tempo?
+**3. O que faria diferente com mais tempo?**
 Com mais de 36 horas, eu focaria em três pilares de escala:
 
 Filtros de Log Granulares: Adicionaria a capacidade de filtrar logs por tipo (Error, Warn, Info, Debug) e uma função de "Search" dentro do terminal para encontrar outputs específicos de código.
